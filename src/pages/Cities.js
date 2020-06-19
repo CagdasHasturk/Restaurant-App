@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react'
-import {View, Text, FlatList, ImageBackground, Switch} from 'react-native'
+import {View, Text, FlatList, ImageBackground, Switch, ActivityIndicator,Alert} from 'react-native'
 import Axios from 'axios'
 
 import {CityListItem, SearchBar, CounterText} from '../components'
@@ -28,12 +28,19 @@ const Cities = ({ navigation }) => {
         fetchCities()
     },[])
 
+
     const fetchCities = async() => {
-        let {data} = await Axios.get('https://opentable.herokuapp.com/api/cities');
-        setCityList(data.cities)
-        setOriginalCityList(data.cities)
-        setCityCount(data.count)
-        setLoading(false)
+        try {
+            let {data} = await Axios.get('https://opentable.herokuapp.com/api/cities');
+            setCityList(data.cities)
+            setOriginalCityList(data.cities)
+            setCityCount(data.count)
+            setLoading(false)
+
+        } catch (error) {
+            setLoading(false)
+            Alert.alert("Bir hata oluştu!")
+        }
     } 
 
     const renderCities = ({ item }) => {
@@ -90,23 +97,30 @@ const Cities = ({ navigation }) => {
                     </View>
            </ImageBackground>
             
-            <CounterText 
-                countNumber={cityCount} 
-                text="Şehir" 
-                theme={isThemeDark}
-            />
-
-            <View style={styles.cityFlatListContainer}>
-                <FlatList 
-                    numColumns={2}
-                    horizontal={false}
-                    refreshing={loading} 
-                    onRefresh={fetchCities} 
-                    data={cityList} 
-                    renderItem={renderCities} 
-                >
-                </FlatList>
-            </View>
+                {
+                loading ?
+                    <View style={styles.acitivityIndicator}>
+                        <ActivityIndicator size="large" />
+                    </View>
+                    :
+                    <View style={styles.cityFlatListContainer}>
+                        <CounterText 
+                            countNumber={cityCount} 
+                            text="Şehir" 
+                            theme={isThemeDark}
+                        />
+                        <FlatList 
+                            keyExtractor={(_, index) => index.toString()}
+                            numColumns={2}
+                            horizontal={false}
+                            refreshing={loading} 
+                            onRefresh={fetchCities} 
+                            data={cityList} 
+                            renderItem={renderCities} 
+                        >
+                        </FlatList>
+                    </View>
+                }
        </View>
     )
 }

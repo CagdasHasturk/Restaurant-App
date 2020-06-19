@@ -17,6 +17,11 @@ const darkTheme = StyleSheet.create({
             alignItems:'center',
             justifyContent:"space-between"
         },
+        acitivityIndicator:{
+            flex:3,
+            alignItems:"center",
+            justifyContent:"center",
+        },
         
         //Cities Page
         cityFlatListContainer: {
@@ -87,7 +92,8 @@ const darkTheme = StyleSheet.create({
             shadowRadius: 3.84,
             elevation: 5,
             justifyContent:"center",
-            alignItems:"center"
+            alignItems:"center",
+            alignSelf:"stretch",
         },
         counterText: {
             color:'#fff',
@@ -179,7 +185,7 @@ const darkTheme = StyleSheet.create({
         },
         detailsButton:{
             padding:15,
-            backgroundColor:'#03A9F4',
+            backgroundColor:'#303030',
             flexDirection:'row',
             alignItems:"center",
             marginVertical:5,
@@ -213,6 +219,11 @@ const darkTheme = StyleSheet.create({
             paddingHorizontal:10,
             alignItems:'center',
             justifyContent:"space-between"
+        },
+        acitivityIndicator:{
+            flex:3,
+            alignItems:"center",
+            justifyContent:"center",
         },
 
         //CitiesPage
@@ -289,7 +300,8 @@ const darkTheme = StyleSheet.create({
             shadowRadius: 3.84,
             elevation: 5,
             justifyContent:"center",
-            alignItems:"center"
+            alignItems:"center",
+            alignSelf:"stretch",
         },
         counterText: {
             color:'#212121',
@@ -382,7 +394,7 @@ const darkTheme = StyleSheet.create({
         },
         detailsButton:{
             padding:15,
-            backgroundColor:'#03A9F4',
+            backgroundColor:'#F5F5F5',
             flexDirection:'row',
             alignItems:"center",
             marginVertical:5,
@@ -390,7 +402,7 @@ const darkTheme = StyleSheet.create({
         },
         detailsButtonText: {
             fontSize:16,
-            color:'#fff',
+            color:'#212121',
             marginHorizontal:10,
             fontWeight:'bold',
         },

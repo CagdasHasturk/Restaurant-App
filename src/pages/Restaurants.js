@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {View, Text, ImageBackground, FlatList} from 'react-native'
+import {View, Text, ImageBackground, FlatList, ActivityIndicator, Alert} from 'react-native'
 import Axios from 'axios'
 
 import {darkTheme, lightTheme} from '../styles';
@@ -23,11 +23,15 @@ const Restaurants = ({navigation, route}) => {
     }, [])
 
     const fetchRestaurants = async () => {
-        let {data} = await Axios.get(`https://opentable.herokuapp.com/api/restaurants?city=${route.params.city}`)
-        setRestaurantList(data.restaurants)
-        setOriginalRestaurantList(data.restaurants)
-        setRestaurantCount(data.restaurants.length)
-        setLoading(false)
+        try{
+            let {data} = await Axios.get(`https://opentable.herokuapp.com/api/restaurants?city=${route.params.city}`)
+            setRestaurantList(data.restaurants)
+            setOriginalRestaurantList(data.restaurants)
+            setRestaurantCount(data.restaurants.length)
+            setLoading(false)
+        }catch(error){
+            Alert.alert("Bir hata oluştu.")
+        }
     } 
     const renderRestaurants = ({ item }) => {
         return  <RestaurantListItem 
@@ -69,20 +73,27 @@ const Restaurants = ({navigation, route}) => {
                 </View>
             </ImageBackground>
            
-            <CounterText 
-                theme={isThemeDark}
-                countNumber={restaurantCount} 
-                text="Restoran">
-            </CounterText> 
-
-             <View style={styles.restaurantFlatListContainer}> 
-                <FlatList
-                    refreshing={loading}
-                    onRefresh={fetchRestaurants}
-                    data={restaurantList}
-                    renderItem={renderRestaurants}>
-                </FlatList>
-             </View>     
+                {
+                loading ?
+                    <View style={styles.acitivityIndicator}>
+                        <ActivityIndicator size="large" />
+                    </View>
+                    : 
+                    <View style={styles.restaurantFlatListContainer}> 
+                        <CounterText 
+                            theme={isThemeDark}
+                            countNumber={restaurantCount} 
+                            text="Restoran">
+                        </CounterText> 
+                        <FlatList
+                            keyExtractor={(_, index) => index.toString()}
+                            refreshing={loading}
+                            onRefresh={fetchRestaurants}
+                            data={restaurantList}
+                            renderItem={renderRestaurants}>
+                        </FlatList>
+                    </View>  
+                }   
         </View>
         
     )

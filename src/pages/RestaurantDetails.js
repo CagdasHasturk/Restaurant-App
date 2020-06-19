@@ -1,5 +1,5 @@
 import React from 'react'
-import { SafeAreaView, View, Text, TouchableOpacity, Button,Linking, ImageBackground} from 'react-native'
+import { SafeAreaView, View, Text, TouchableOpacity, Button, Linking, ImageBackground,} from 'react-native'
 
 import {darkTheme, lightTheme} from '../styles';
 import {SvgHome, SvgMapPin, SvgPhone} from '../SvgComponents'
@@ -47,7 +47,8 @@ const RestaurantDetails = ({ route }) => {
                         </TouchableOpacity>
                     </View>
 
-                    <Button title="Rezervasyon Yaptır" onPress={
+                    <Button title="Rezervasyon Yaptır" 
+                            onPress={
                             () => 
                             Linking.openURL(route.params.restaurant.reserve_url)
                         } />
