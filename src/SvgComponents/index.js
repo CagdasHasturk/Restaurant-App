@@ -1,0 +1,6 @@
+export * from './SvgHome'
+export * from './SvgMapPin'
+export * from './SvgMoon'
+export * from './SvgPhone'
+export * from './SvgSearch'
+export * from './SvgSun'
